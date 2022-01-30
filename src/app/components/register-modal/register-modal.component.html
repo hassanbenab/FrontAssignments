@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <div class="registrationForm">
+	<mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput [(ngModel)]="user.name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [(ngModel)]="user.password">
+      </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" [disabled]="!enableRegistration()" (click)="onConfirmClick()" tabindex="1">Créer un compte</button>
+	<button mat-raised-button mat-dialog-close tabindex="-1">Annuler</button>
+</mat-dialog-actions>

@@ -1,0 +1,203 @@
+<main class="container">
+  <div class="ajouterBtn">
+    <!-- <a routerLink="/add"> -->
+    <button mat-flat-button color="accent" (click)="AddAssignment()">
+      Ajouter Assignment
+    </button>
+    <!-- </a> -->
+  </div>
+
+  <h2>Liste des assignments :</h2>
+
+
+  <table *ngIf="assignments" mat-table [dataSource]="assignments" class="mat-elevation-z8" matSort>
+    <!-- date Column -->
+    <ng-container matColumnDef="dateDeRendu">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de rendu </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i]">
+          {{element.dateDeRendu | date }}
+        </ng-container>
+
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="date" name="date">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i]">
+          {{element.nom}}
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field appearance="outline" class="editField">
+            <input matInput [placeholder]="element.nom" [disabled]="editdisabled" name="name" [(ngModel)]="name">
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- matiere Column -->
+    <ng-container matColumnDef="matiere">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Matiere </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i] && element.matiere">
+          {{element.matiere.nomMatiere}}
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field appearance="outline" class="editField">
+            <input matInput [placeholder]="element.matiere? element.matiere.nomMatiere : 'Nom de la matière'" [disabled]="editdisabled" name="matiere"
+              [(ngModel)]="nomMatiere">
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Auteur Column -->
+    <ng-container matColumnDef="auteur">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Auteur </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i] && element.auteur">
+          {{element.auteur}}
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field appearance="outline" class="editField">
+            <input matInput [placeholder]="element.auteur ? element.auteur : 'Nom de l\'auteur'" [disabled]="editdisabled" name="auteur"
+              [(ngModel)]="nomAuteur">
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Note Column -->
+    <ng-container matColumnDef="note">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Note </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i] && element.note">
+          {{element.note}}
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field appearance="outline" class="editField">
+            <input matInput [placeholder]="element.note ? element.note : 'Note sur 20'" [disabled]="editdisabled" name="note" type="number"
+              [(ngModel)]="note">
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="remarques">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i] && element.remarques">
+          {{element.remarques}}
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-form-field appearance="outline" class="editField">
+            <input matInput [placeholder]="element.remarques ? element.remarques : 'Remarques'" [disabled]="editdisabled" name="remarques"
+              [(ngModel)]="remarques">
+          </mat-form-field>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- rendu Column -->
+    <ng-container matColumnDef="rendu">
+      <th mat-header-cell *matHeaderCellDef>Rendu </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <ng-container *ngIf="!editMode[i]">
+          <mat-checkbox [disabled]="true" [checked]="element.rendu">
+            Rendu
+          </mat-checkbox>
+        </ng-container>
+        <ng-container *ngIf="editMode[i]">
+          <mat-checkbox *ngIf="!element.rendu" [disabled]="!element.note"
+            (change)="onAssignmentRendu(element,$event.checked)">
+            Rendu
+          </mat-checkbox>
+          <mat-checkbox *ngIf="element.rendu" [disabled]="true" [checked]="element.rendu">
+            Rendu
+          </mat-checkbox>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions </th>
+      <td mat-cell *matCellDef="let element; let i = index;" style="width: 140px;">
+        <div *ngIf="!editMode[i]" class="actionsDiv">
+          <button (click)="allowEdit(i)" type="button" matTooltip="Update" [disabled]="editdisabled" mat-icon-button
+            matSuffix>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteRow(element)" type="button" matTooltip="Cancel" [disabled]="editdisabled"
+            mat-icon-button matSuffix>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button (click)="assignmentDetails(element.id)" type="button" matTooltip="Voir les détails"
+            [disabled]="editdisabled" mat-icon-button matSuffix>
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="editMode[i]" class="actionsDiv">
+          <button (click)="updateEdit(element, i)" type="button" matTooltip="Update" [disabled]="editdisabled"
+            mat-icon-button matSuffix>
+            <mat-icon>check</mat-icon>
+          </button>
+          <button (click)="cancelEdit(i)" type="button" matTooltip="Cancel" [disabled]="editdisabled" mat-icon-button
+            matSuffix>
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSize]="limit" [pageIndex]="page" [length]="totalDocs" (page)="onPageChange($event)">
+  </mat-paginator>
+
+
+  <!-- Nb assignments par page :
+  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()"> {{limit}}
+  <div class="pagination">
+    <button mat-stroked-button color="primary" (click)="premierePage()" [disabled]="page===1">Première page</button>
+    &nbsp;
+    <button mat-stroked-button color="primary" (click)="pagePrecedente()" [disabled]="!hasPrevPage">Page
+      précédente</button>
+    &nbsp;
+    <button mat-stroked-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page suivante</button>
+    &nbsp;
+    <button mat-stroked-button color="primary" (click)="dernierePage()" [disabled]="page===totalPages">Dernière
+      page</button>
+  </div>
+  <mat-list *ngFor="let assignment of assignments">
+    <nav>
+      <a routerLink="/assignment/{{assignment.id}}">
+        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu | date}}</h3>
+        <mat-list-item>
+          <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
+            {{assignment.nom}} a été rendu par l'élève.
+          </p>
+
+          <ng-template #nonsoumis>
+            <p>{{assignment.nom}} non rendu.</p>
+          </ng-template>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </a>
+    </nav>
+  </mat-list> -->
+
+</main>

@@ -1,0 +1,20 @@
+
+<mat-card *ngIf="assignmentTransmis">
+  <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
+  <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
+  <form style="display: grid;">
+    <mat-form-field *ngIf="assignmentTransmis.matiere && assignmentTransmis.matiere.nomMatiere">
+      <input matInput readonly name="matiere" placeholder="Matière" [value]="assignmentTransmis.matiere.nomMatiere">
+    </mat-form-field>
+    <mat-form-field *ngIf="assignmentTransmis.auteur">
+      <input matInput readonly name="auteur" placeholder="Auteur" [value]="assignmentTransmis.auteur">
+    </mat-form-field>
+    <mat-form-field *ngIf="assignmentTransmis.note">
+      <input matInput readonly name="note" placeholder="Note" [value]="assignmentTransmis.note">
+    </mat-form-field>
+    <mat-form-field *ngIf="assignmentTransmis.remarques">
+      <input matInput readonly name="remarques" placeholder="Remarques" [value]="assignmentTransmis.remarques">
+    </mat-form-field>
+  </form>
+  
+</mat-card>

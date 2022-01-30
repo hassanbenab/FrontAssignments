@@ -1,0 +1,39 @@
+.rendu {
+  color:green;
+}
+
+.nonRendu {
+  color:red;
+  background-color: yellow;
+  border : 3px dashed purple;
+}
+
+.important {
+   font-size: 40px;
+ }
+
+ .container {
+   display:flex;
+   flex-direction: column;
+ }
+
+ .ajouterBtn {
+   align-self: flex-end;
+ }
+
+ .pagination {
+   width:500px;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.actionsDiv {
+  width: max-content; 
+}
+
+.message{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}

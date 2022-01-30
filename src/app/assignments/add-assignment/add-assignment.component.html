@@ -1,0 +1,73 @@
+
+<mat-stepper [linear]="true" #stepper>
+  <!-- (submit)="onSubmit(); assignmentForm.reset();" -->
+  <mat-step>
+    <form ngForm class="form"
+    #assignmentForm
+    >
+      <ng-template matStepLabel>Ajouter le devoir</ng-template>
+      <mat-form-field>
+        <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir">
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" placeholder="Date de rendu" name="date">
+    
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button  color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Ajouter l'élève">
+    <form  #auteurForm>
+      <mat-form-field>
+        <input matInput [(ngModel)]="nomAuteur" name="nom" placeholder="Nom de l'auteur">
+      </mat-form-field>
+      <div>
+        <button mat-button   color="primary" matStepperPrevious>Back</button>
+        <button mat-button  color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Ajouter la matière">
+    <form class="form"  #matiereForm>
+    <mat-form-field>
+      <input matInput [(ngModel)]="nomMatiere" name="nom" placeholder="Libellé de la matiere">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="imageMatiere" name="nom" placeholder="Image de la matière">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="photoProf" name="nom" placeholder="Photo du prof">
+    </mat-form-field>
+    <div>
+      <button mat-button color="primary" (click)="onSubmit(); assignmentForm.reset(); matiereForm.reset(); auteurForm.reset();">Ajouter le devoir</button>
+      <button mat-button  color="primary" (click)="stepper.reset()">Reset</button>
+    </div>
+  </form>
+
+  </mat-step>
+</mat-stepper>
+<!-- 
+<form ngForm class="form"
+      #assignmentForm
+      (submit)="onSubmit(); assignmentForm.reset();">
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" placeholder="Date de rendu" name="date">
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary">
+    Ajouter un devoir
+  </button>
+</form> -->

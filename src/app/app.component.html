@@ -1,0 +1,28 @@
+<p class="toolbar">
+  <mat-toolbar>
+
+    <span><a routerLink="/home" class="appName">
+        {{title}}
+      </a></span>
+    <span class="example-spacer"></span>
+    <button *ngIf="!isLogged" mat-raised-button color="primary" (click)="login()">
+      Se connecter
+    </button>
+    <button *ngIf="isLogged" mat-raised-button color="primary" (click)="logout()">
+      Se déconnecter
+    </button>
+    <button *ngIf="!isLogged" mat-raised-button color="primary" style="margin-left: 10px;" (click)="register()">
+      Créer un compte
+    </button>
+  </mat-toolbar>
+</p>
+
+<div class="content">
+  <!-- <mat-slide-toggle (click)="login()">Login</mat-slide-toggle>
+<br> -->
+  <button *ngIf='isLogged' mat-raised-button color="primary" (click)="remplirBD()">
+    PEUPLER BD
+  </button>
+
+  <router-outlet></router-outlet>
+</div>
