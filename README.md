@@ -1,27 +1,61 @@
-# AssignmentApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+# Mini projet Web Assignments Miage Intense
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Auteurs
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Hassan BEN ABDELJELIL
+- Youness HARAKI
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Tâches réalisées
 
-## Running unit tests
+- #### Ajout d'une gestion de login/password: authentification à l'aide de Json Web Tokens (JWT)
+- #### Ajout de nouvelles propriétés au modèle des assignments: 
+  - nom de la matière
+  - auteur
+  - note
+  - remarques
+  - rendu (O/N)  *(on ne peut marquer "rendu" un assignment qui n'a pas été noté)*
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+- #### Amélioration l'affichage des assignments
+  - Table angular material **triable** avec la pagination
+  - Actions possible sur un assignment:
+       - Modifier
+       - Supprimer
+       - Voir détail (MatDialog) 
+- #### Utilisation des Formulaires de type Stepper pour l'ajout d'assignments
+- #### Hébergement sur Heroku
+## Execution
+**Local**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Back-end
+```bash
+  git clone https://github.com/hassanbenab/APIAssignments
+  npm i
+  npm start
+```
 
-## Further help
+front-end
+```bash
+  git clone https://github.com/hassanbenab/FrontAssignments
+  npm i
+  ng serve
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**Heroku**
+
+- URL front-end: https://frontassignments.herokuapp.com/
+- URL back-end: https://backassignments.herokuapp.com/
+
+
+## Screenshots
+
+![App Screenshot](https://www.zupimages.net/up/22/04/fj18.png)
+![App Screenshot](https://zupimages.net/up/22/04/8d60.png)
+![App Screenshot](https://zupimages.net/up/22/04/gnan.png)
+![App Screenshot](https://zupimages.net/up/22/04/uyzt.png)
+![App Screenshot](https://zupimages.net/up/22/04/nkp7.png)
+![App Screenshot](https://zupimages.net/up/22/04/eenl.png)
